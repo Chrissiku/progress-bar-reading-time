@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: progress_bar_development
+
+test:
+  <<: *default
+  database: progress_bar_test
+
+production:
+  <<: *default
+  database: progress_bar_production
+  username: progress_bar
+  password: <%= ENV["PROGRESS_BAR_DATABASE_PASSWORD"] %>
